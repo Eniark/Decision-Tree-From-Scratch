@@ -1,5 +1,6 @@
 from Question import Question
 
+
 class Node:
     def __init__(self, X: list[list], y: list[str]):
         self.X = X
@@ -7,6 +8,8 @@ class Node:
         self.left = None
         self.right = None
         self.gini_impurity = None
+        self.question = None
+        self.values = None
 
     def get_uniques(self) -> set:
         return set(self.y)
@@ -20,7 +23,7 @@ class Node:
                 counts[i] += 1
         return counts
 
-    def split(self, question: Question, feature_id:int) -> None:
+    def split(self, question: Question, feature_id: int) -> None:
         X_left = []
         y_left = []
         X_right = []
@@ -36,7 +39,5 @@ class Node:
         return X_left, y_left, X_right, y_right
 
     def __str__(self) -> None:
-        values = self.get_counts_of_each_target()
-        samples = sum(values.values())
-        st = f"""\tGini_Impurity = {self.gini_impurity}\n\tSamples = {samples}\n\tValue = [{values}]\n"""
+        st = f"""\tQuestion: {self.question}\n\tGini_Impurity = {self.gini_impurity}\n\tSamples = {self.samples}\n\tValue = [{self.values}]\n"""
         return st
